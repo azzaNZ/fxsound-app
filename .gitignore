@@ -357,3 +357,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# Zip files - prevent large archives from being committed
+*.zip
+

@@ -1,6 +1,8 @@
 ## How to contribute
 We welcome anyone who wants to contribute to this project. We thank you for all your contributions...
 
+Test change
+
 ### Contribute as a Community
 - You can answer questions in [the issue tracker](https://github.com/fxsound2/fxsound-app/issues), or in [the fxsound forum](https://forum.fxsound.com/).
 

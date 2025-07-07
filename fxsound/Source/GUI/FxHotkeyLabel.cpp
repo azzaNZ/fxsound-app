@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "FxController.h"
 #include "FxTheme.h"
 
-FxHotkeyLabel::FxHotkeyLabel(const String& name, const String& command) : name_(name), hotkey_editor_(command)
+FxHotkeyLabel::FxHotkeyLabel(const String &name, const String &command) : name_(name), hotkey_editor_(command)
 {
-	auto& theme = dynamic_cast<FxTheme&>(getLookAndFeel());
+	auto &theme = dynamic_cast<FxTheme &>(getLookAndFeel());
 
 	label_.setJustificationType(Justification::topLeft);
 	label_.setFont(theme.getSmallFont());
@@ -42,9 +42,9 @@ void FxHotkeyLabel::resized()
 	hotkey_editor_.setBounds(editor_bounds);
 }
 
-void FxHotkeyLabel::paint(Graphics& g)
+void FxHotkeyLabel::paint(Graphics &g)
 {
-	auto& theme = dynamic_cast<FxTheme&>(getLookAndFeel());
+	auto &theme = dynamic_cast<FxTheme &>(getLookAndFeel());
 
 	label_.setJustificationType(Justification::topLeft);
 	label_.setFont(theme.getSmallFont());
@@ -53,7 +53,7 @@ void FxHotkeyLabel::paint(Graphics& g)
 	Component::paint(g);
 }
 
-FxHotkeyEditor::FxHotkeyEditor(const String& command)
+FxHotkeyEditor::FxHotkeyEditor(const String &command)
 {
 	command_ = command;
 
@@ -62,7 +62,7 @@ FxHotkeyEditor::FxHotkeyEditor(const String& command)
 	setWantsKeyboardFocus(true);
 	setMouseClickGrabsKeyboardFocus(true);
 
-	auto& theme = dynamic_cast<FxTheme&>(getLookAndFeel());
+	auto &theme = dynamic_cast<FxTheme &>(getLookAndFeel());
 	setFont(theme.getSmallFont());
 	setJustificationType(Justification::centred);
 	setKeyText();
@@ -73,7 +73,7 @@ FxHotkeyEditor::FxHotkeyEditor(const String& command)
 	setBounds(0, 0, HOTKEY_EDITOR_WIDTH, HOTKEY_EDITOR_HEIGHT);
 }
 
-bool FxHotkeyEditor::keyPressed(const KeyPress& key)
+bool FxHotkeyEditor::keyPressed(const KeyPress &key)
 {
 	int mod = 0;
 	int vk = 0;
@@ -105,7 +105,7 @@ bool FxHotkeyEditor::keyPressed(const KeyPress& key)
 
 	int saved_mod;
 	int saved_vk;
-	auto& controller = FxController::getInstance();
+	auto &controller = FxController::getInstance();
 	if (controller.getHotkey(FxController::HK_CMD_ON_OFF, saved_mod, saved_vk))
 	{
 		if (mod == saved_mod && vk == saved_vk)
@@ -141,6 +141,13 @@ bool FxHotkeyEditor::keyPressed(const KeyPress& key)
 			return false;
 		}
 	}
+	if (controller.getHotkey(FxController::HK_CMD_SYSTEM_MUTE, saved_mod, saved_vk))
+	{
+		if (mod == saved_mod && vk == saved_vk)
+		{
+			return false;
+		}
+	}
 
 	if (vk != 0)
 	{
@@ -168,7 +175,7 @@ void FxHotkeyEditor::focusLost(FocusChangeType cause)
 	repaint();
 }
 
-void FxHotkeyEditor::paint(juce::Graphics& g)
+void FxHotkeyEditor::paint(juce::Graphics &g)
 {
 	Label::paint(g);
 
@@ -185,7 +192,7 @@ void FxHotkeyEditor::paint(juce::Graphics& g)
 		borderThickness = 0.75;
 	}
 
-	auto& theme = dynamic_cast<FxTheme&>(getLookAndFeel());
+	auto &theme = dynamic_cast<FxTheme &>(getLookAndFeel());
 	if (isEnabled())
 	{
 		if (FxController::getInstance().isValidHotkey(mod_, vk_))
